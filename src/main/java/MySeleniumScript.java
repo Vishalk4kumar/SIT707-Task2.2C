@@ -6,6 +6,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.locators.RelativeLocator;
 
 import java.io.File;
 import java.io.IOException;
@@ -28,24 +29,26 @@ public class MySeleniumScript {
 		driver.get(
 				"https://www.officeworks.com.au/app/identity/create-account?redirect_path=%2Fapp%2Fcatalogue%2Flogin-redirect%3Fcomponent_id%3DODP-login-button%26entry_point%3D%2F");
 
-		// Fill values in target elements
-		WebElement firstNameInput = driver.findElement(By.id("firstname"));
-		firstNameInput.sendKeys("Vish");
+		// Fill values in target elements using relative locators
 
-		WebElement lastNameInput = driver.findElement(By.id("lastname"));
-		lastNameInput.sendKeys("Kum");
+		
+        WebElement firstName = driver.findElement(RelativeLocator.with(By.tagName("input")).above(By.id("lastname")));
+        firstName.sendKeys("Vishal");
 
-		WebElement emailInput = driver.findElement(By.id("email"));
-		emailInput.sendKeys("my_email@example.com");
+        WebElement lastName = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.id("firstname")));
+        lastName.sendKeys("Kumar");
 
-		WebElement phoneInput = driver.findElement(By.id("phoneNumber"));
-		phoneInput.sendKeys("0423160160");
+        WebElement email = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.id("phoneNumber")));
+        email.sendKeys("my_email@example.com");
 
-		WebElement passwordInput = driver.findElement(By.id("password"));
-		passwordInput.sendKeys("Password@1");
+        WebElement phone = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.id("lastname")));
+        phone.sendKeys("0423160160");
 
-		WebElement confirmPasswordInput = driver.findElement(By.id("confirmPassword"));
-		confirmPasswordInput.sendKeys("Password@1");
+        WebElement password = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.id("email")));
+        password.sendKeys("Password@1");
+
+        WebElement confirmPassword = driver.findElement(RelativeLocator.with(By.tagName("input")).below(By.id("password")));
+        confirmPassword.sendKeys("Password@1");
 
 		// Identify Create account button and click
 		WebElement createAccountButton = driver.findElement(By.xpath("//button[contains(text(),'Create account')]"));
